@@ -5,7 +5,7 @@ import { Button, Grid, Link, TextField } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import { AuthLayout } from '../layout/AuthLayout'
 import { useForm } from '../../hooks'
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth'
+import { startGoogleSignIn, startLoginWithEmailandPassword } from '../../store/auth'
 
 export const LoginPage = () => {
   
@@ -14,8 +14,8 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   
   const { email, password, onInputChange } = useForm({
-    email: 'jonasjosue@gmail.com',
-    password: '123456'
+    email: '',
+    password: ''
   });
 
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
@@ -23,7 +23,7 @@ export const LoginPage = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log({ email, password });
-    dispatch( checkingAuthentication())
+    dispatch(startLoginWithEmailandPassword({email, password}))
   }
 
   const onGoogleSignIn = () => { 
